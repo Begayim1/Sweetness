@@ -14,14 +14,14 @@ class RegistrationForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('Юзер с таким email уже сущкствует')
+            raise forms.ValidationError('Юзер с таким email уже сущeствует')
         return email
 
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
-            raise forms.ValidationError('Юзер с таким username уже сущкствует')
+            raise forms.ValidationError('Юзер с таким username уже сущecтвует')
         return username
     def clean(self):
         data = self.cleaned_data
@@ -32,7 +32,7 @@ class RegistrationForm(forms.ModelForm):
         return data
 
     def save(self, commit=True):
-        from  .utils import  send_welcome_email
+        from .utils import  send_welcome_email
         user = User.objects.create_user(**self.cleaned_data)
         send_welcome_email(user.email)
         return user

@@ -8,4 +8,5 @@ def send_welcome_email(email):
         message,
         'pyshopadmin@gamil.com',
         [email,],
-        fail_silently=False
+        fail_silently=False)
+
