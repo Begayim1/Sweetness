@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+<!--{%  block name %}-->
+<!--{{ name }}-->
+<!--{% endblock %}-->
+
+{% block content %}
+    <h1>Главная страница</h1>
+    {% if products %}
+    {% for el in products %}
+
+            <div class="alert alert-warning mt-2">
+
+                <h3>{{ el.name }}</h3>
+                <h4>{{ el.category}}</h4>
+                <img src="{{ el.image.url }}" class="img-thumbnail" alt="...">
+                <p>{{ el.description | truncatechars:50}}</p>
+                <h6>{{ el.price }} com </h6>
+                <h6>{{ el.status }}</h6>
+
+<!--                <p>{{ el.image.url }}</p>-->
+
+<!--                <img src="{{ el.image.url }}" alt="">-->
+            </div>
+    {% endfor %}
+    {% else %}
+        <p>Нет записей</p>
+    {% endif %}
+
+
+<!--Pagination-->
+{% if is_paginated %}
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="{% url 'list' category %}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      {% endif %}
+      <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+
+      {% if page_obj.has_next %}
+
+      <li class="page-item">
+        <a class="page-link" href="{% url 'list' category %}?page={{ page_obj.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+<!--End Pagination-->
+{% endblock %}
+
+
+
