@@ -5,19 +5,26 @@
 <!--{% endblock %}-->
 
 {% block content %}
-    <h1>Главная страница</h1>
+
+
     {% if products %}
     {% for el in products %}
-
-            <div class="alert alert-warning mt-2">
-
+<h1>{{ el.category}}</h1>
+            <div class="alert alert-warning mt-2 " display: flex;>
+                <div>
                 <h3>{{ el.name }}</h3>
-                <h4>{{ el.category}}</h4>
-                <img src="{{ el.image.url }}" class="img-thumbnail" alt="...">
-                <p>{{ el.description | truncatechars:50}}</p>
+                      <div>
+                <img style="width: 500px; height: auto;" src="{{ el.image.url }}" class="img-thumbnail" alt="...">
+                      </div>
+                    <div>
+                <p >{{ el.description | truncatechars:80}}</p>
+                    </div>
                 <h6>{{ el.price }} com </h6>
                 <h6>{{ el.status }}</h6>
+                    <a class="btn btn-outline-dark" href="/cart/add/6/" role="'button">Add to card</a>
 
+
+                </div>
 <!--                <p>{{ el.image.url }}</p>-->
 
 <!--                <img src="{{ el.image.url }}" alt="">-->

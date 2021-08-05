@@ -29,7 +29,7 @@ class CategoryListView(ListView):
 
 
 class ShopListView(ListView):
-    model = Product # Product.object.all()
+    model = Product   # Product.object.all()
     template_name = 'shop/list.html'
     context_object_name = 'products'
     paginate_by = 1

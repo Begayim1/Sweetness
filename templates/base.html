@@ -29,7 +29,9 @@
     <!--Menu-->
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                   <li><a href="{% url 'home' %}" class="nav-link px-2 text-secondary">Home</a></li>
-                  <li><a href="{% url 'list' %}" class="nav-link px-2 text-white">All</a></li>
+                    {% for category in categories %}
+                  <li><a href="{% url 'list' category.slug %}" class="nav-link px-2 text-white">Product</a></li>
+                    {% endfor %}
                   <li><a href="{% url 'favorites' %}" class="nav-link px-2 text-white">Favorites</a></li>
                 </ul>
     <!-- Start Search-->
