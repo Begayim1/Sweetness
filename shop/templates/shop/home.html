@@ -8,7 +8,7 @@
 
        {% for category in categories %}
        {%  if category.products.all %}
-    <li class="list-group-item"><a href="{% url 'list' category.slug  %}"><button type="button" class="btn btn-info">{{ category.name }}</button></a></li>
+    <li class="list-group-item"><a href="{% url 'list' category.slug  %}"><button type="button" class="btn btn-warning">{{ category.name }}</button></a></li>
        {% endif %}
        {% endfor %}
 
