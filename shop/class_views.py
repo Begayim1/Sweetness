@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
-from django.urls import reverse
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView , DeleteView
 
-from shop.forms import CreateShopForm, UpdateShopForm
-from shop.models import Category, Product
+from shop.forms import CreateShopForm, UpdateShopForm, ReviewAddForm
+from shop.models import Category, Product, Review
 
 
 class SearchListView(ListView):
@@ -52,6 +53,20 @@ class ShopDetailView(DetailView):
     context_object_name = 'product'
     pk_url_kwarg = 'id'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        product = context["product"]
+        context["comments"] = Review.objects.filter(product_id=product.id)
+        context["form"] = ReviewAddForm
+        return context
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        product = Product.objects.get(id=kwargs.get("id"))
+        # print(product)
+        text = request.POST.get("text")
+        Review.objects.create(user=user, product=product, text=text)
+        return redirect(reverse("home"))
 
 class IsAdminCheckMixin(UserPassesTestMixin):
     def test_func(self):
@@ -101,5 +116,20 @@ class ShopFavoritesView(ListView):
     pk_url_kwargs = 'id'
 
 
-class ShopContactsView():
-    pass
+class ReviewAdd(CreateView):
+    model = Review
+    form_class = ReviewAddForm
+    success_url = reverse_lazy('home')
+    pk_url_kwarg = 'id'
+
+    def post(self, request, *args, **kwargs):
+        print(request)
+        return super().post(request, *args, **kwargs)
+
+    # def form_valid(self, form):
+    #     self.object = form.save(commit=False)
+    #     product = get_object_or_404(Product, id=self.pk_url_kwarg)
+    #     self.object.user = self.request.user
+    #     self.object.product = product
+    #     self.object.save()
+    #     return super().form_valid(form)

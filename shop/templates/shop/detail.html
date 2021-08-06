@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <div style="display: flex; justify-content: center; align-items; center; height: 100vh;">
   <div class="alert alert-warning mt-2" style="max-width: 800px;">
     <div class="row g-0">
@@ -20,6 +21,17 @@
           {% else %}
           <p style="color: blue;" class="card-text"> Ожидаеся</p>
           {% endif %}
+
+
+
+<!--        comments-->
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" type="submit">Send </button>
+          </form>
+<!--        end commends-->
+
           <a class="btn btn-warning" href="{% url 'update_product' product.id %}" role="'button">Update</a>
            <a class="btn btn-danger" href="{% url 'delete_product' product.id %}" role="'button">Delete</a>
 

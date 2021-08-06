@@ -20,7 +20,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from main.views import *
-from shop.class_views import SearchListView, ShopUpdateView, ShopDeleteView
+from shop.class_views import SearchListView, ShopUpdateView, ShopDeleteView, ReviewAdd
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
@@ -29,5 +29,5 @@ urlpatterns = [
     path('product/update/<int:id>', ShopUpdateView.as_view(), name='update_product'),
     path('product/delete/<int:id>', ShopDeleteView.as_view(), name='update_product'),
     path('search', SearchListView.as_view(), name='search'),
-
+    path('add-review/<int:id>/', ReviewAdd.as_view(), name="add-review")
 ]

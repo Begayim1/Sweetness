@@ -35,7 +35,7 @@
                   <li><a href="{% url 'cart_detail' %}" class="nav-link px-2 text-white">Cart</a></li>
                 </ul>
  <a href="{% url 'cart_detail' %}"><img style="width:30px; height:auto " src="{% static 'img/carts.png' %}"></a>
-                  <!--   Permission to create -->
+   <!--   Permission to create -->
     {% if request.user.is_authenticated and request.user.is_superuser  %}
     <a href="{% url 'create-product' %}"><img style="width: 36px; height: auto;" src="{% static 'img/add.png' %}"></a>
     {% endif %}

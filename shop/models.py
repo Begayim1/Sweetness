@@ -1,4 +1,6 @@
+from django.contrib.auth import get_user_model
 from django.db import models
+User = get_user_model()
 
 class Category(models.Model):
 
@@ -13,9 +15,6 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-
-
-
     STATUS_CHOICES = (
         ('in stock', 'В наличии'),
         ('out of stock', 'Нет в наличии')
@@ -38,3 +37,12 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['-id']
+
+
+class Review(models.Model):
+    user = models.ForeignKey(User, related_name='review', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name="review", verbose_name='продукты', on_delete=models.CASCADE)
+    text = models.TextField(verbose_name='Комментарий')
+
+    def __str__(self):
+        return "Comment by {} on {}".format(self.user, self.product)
